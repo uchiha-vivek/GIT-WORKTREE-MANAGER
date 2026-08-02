@@ -42,6 +42,18 @@ cargo run -- remove feature/login
 
 ![Git Worktree Manager architecture](./assets/git-worktree.png)
 
+
+## CORE FEATURES
+
+1. Remote Execution Server
+2. Scheduler
+3. Multi Agent Execution
+
+
+
 ## License
 
 Licensed under the [MIT License](./LICENSE).
+
+
+
