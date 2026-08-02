@@ -41,3 +41,7 @@ cargo run -- remove feature/login
 ## Architecture
 
 ![Git Worktree Manager architecture](./assets/git-worktree.png)
+
+## License
+
+Licensed under the [MIT License](./LICENSE).
