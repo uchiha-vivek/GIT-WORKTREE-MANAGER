@@ -56,7 +56,7 @@ fn create_worktree(name: &str) {
     let folder_name = name.split('/').last().unwrap_or(name);
     let target_path: PathBuf = ["workspaces", folder_name].iter().collect();
 
-    println!("🚀 Creating branch: {}", name);
+    println!("Creating branch: {}", name);
     if !run_git_cmd(&["branch", name]) {
         eprintln!("Warning: Branch might already exist, attempting to create worktree anyway...");
     }
