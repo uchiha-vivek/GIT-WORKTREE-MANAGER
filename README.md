@@ -40,4 +40,4 @@ cargo run -- remove feature/login
 
 ## Architecture
 
-![Git Worktree Manager architecture](assets/git-worktree.png)
+![Git Worktree Manager architecture](./assets/git-worktree.png)
