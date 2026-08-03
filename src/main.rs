@@ -1,6 +1,7 @@
 use clap::{Parser, Subcommand};
 use std::path::PathBuf;
 use std::process::Command;
+use colored::*;
 
 #[derive(Parser)]
 #[command(name = "worktree-manager")]
@@ -45,7 +46,7 @@ fn run_git_cmd(args: &[&str]) -> bool {
     match status {
         Ok(s) => s.success(),
         Err(e) => {
-            eprintln!("Failed to execute git command: {}", e);
+            eprintln!("{} Failed to execute git command: {}", "error:".red().bold(), e);
             false
         }
     }
@@ -56,21 +57,24 @@ fn create_worktree(name: &str) {
     let folder_name = name.split('/').last().unwrap_or(name);
     let target_path: PathBuf = ["workspaces", folder_name].iter().collect();
 
-    println!("Creating branch: {}", name);
+    println!("{} {}", "Creating branch:".cyan().bold(), name);
     if !run_git_cmd(&["branch", name]) {
-        eprintln!("Warning: Branch might already exist, attempting to create worktree anyway...");
+        eprintln!(
+            "{} Branch might already exist, attempting to create worktree anyway...",
+            "warning:".yellow().bold()
+        );
     }
 
-    println!("Creating worktree at: {:?}", target_path);
+    println!("{} {}", "Creating worktree at:".cyan().bold(), target_path.display());
     if run_git_cmd(&["worktree", "add", target_path.to_str().unwrap(), name]) {
-        println!("Worktree created successfully!");
+        println!("{}", "Worktree created successfully!".green().bold());
     } else {
-        eprintln!("Failed to create worktree.");
+        eprintln!("{}", "Failed to create worktree.".red().bold());
     }
 }
 
 fn list_worktrees() {
-    println!("Current Git Worktrees:\n");
+    println!("{}\n", "Current Git Worktrees:".cyan().bold());
     run_git_cmd(&["worktree", "list"]);
 }
 
@@ -78,10 +82,10 @@ fn remove_worktree(name: &str) {
     let folder_name = name.split('/').last().unwrap_or(name);
     let target_path: PathBuf = ["workspaces", folder_name].iter().collect();
 
-    println!("Removing worktree at: {:?}", target_path);
+    println!("{} {}", "Removing worktree at:".cyan().bold(), target_path.display());
     if run_git_cmd(&["worktree", "remove", target_path.to_str().unwrap()]) {
-        println!("Worktree removed successfully!");
+        println!("{}", "Worktree removed successfully!".green().bold());
     } else {
-        eprintln!("Failed to remove worktree.");
+        eprintln!("{}", "Failed to remove worktree.".red().bold());
     }
 }
